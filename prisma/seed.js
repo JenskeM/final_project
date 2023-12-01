@@ -16,12 +16,54 @@ async function main() {
     const { reviews } = reviewsData
     const { users } = usersData
 
+    for (const user of users) {
+        await prisma.user.upsert({
+            where: { id: user.id },
+            update: {},
+            create: user
+        })
+    }
+
+    for (const host of hosts) {
+        await prisma.host.upsert({
+            where: { id: host.id },
+            update: {},
+            create: host
+        })
+    }
+
+    for (const property of properties) {
+        await prisma.property.upsert({
+            where: { id: property.id },
+            update: {},
+            create: property
+        })
+    }
+
     for (const amenity of amenities) {
         await prisma.amenity.upsert({
             where: { id: amenity.id },
             update: {},
             create: amenity,
         });
+    }
+
+    for (const review of reviews) {
+        await prisma.review.upsert({
+            where: { id: review.id },
+            update: {},
+            create: {
+                id: review.id,
+                rating: review.rating,
+                comment: review.comment,
+                user: {
+                    connect: { id: review.userId }
+                },
+                property: {
+                    connect: { id: review.propertyId }
+                }
+            }
+        })
     }
 
     for (const booking of bookings) {
@@ -43,48 +85,6 @@ async function main() {
                 }
             },
 
-        })
-    }
-
-    for (const host of hosts) {
-        await prisma.host.upsert({
-            where: { id: host.id },
-            update: {},
-            create: host
-        })
-    }
-
-    for (const property of properties) {
-        await prisma.property.upsert({
-            where: { id: property.id },
-            update: {},
-            create: property
-        })
-    }
-
-    for (const review of reviews) {
-        await prisma.review.upsert({
-            where: { id: review.id },
-            update: {},
-            create: {
-                id: review.id,
-                rating: review.rating,
-                comment: review.comment,
-                user: {
-                    connect: { id: review.userId }
-                },
-                property: {
-                    connect: { id: review.propertyId }
-                }
-            }
-        })
-    }
-
-    for (const user of users) {
-        await prisma.user.upsert({
-            where: { id: user.id },
-            update: {},
-            create: user
         })
     }
 }
