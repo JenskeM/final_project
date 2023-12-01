@@ -3,14 +3,20 @@ import { PrismaClient } from '@prisma/client'
 const createReview = async (userId, propertyId, rating, comment) => {
     const prisma = new PrismaClient()
 
-    return await prisma.user.create({
+    const review = await prisma.user.create({
         data: {
-            userId,
-            propertyId,
             rating,
-            comment
+            comment,
+            user: {
+                connect: { id: user }
+            },
+            property: {
+                connect: { id: property }
+            }
         }
     })
+
+    return review
 };
 
 export default createReview;

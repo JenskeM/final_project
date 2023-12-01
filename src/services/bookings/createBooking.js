@@ -3,17 +3,23 @@ import { PrismaClient } from '@prisma/client'
 const createBooking = async (userId, propertyId, checkinDate, checkoutDate, numberOfGuests, totalPrice, bookingStatus) => {
     const prisma = new PrismaClient()
 
-    return await prisma.booking.create({
+    const booking = await prisma.booking.create({
         data: {
-            userId,
-            propertyId,
             checkinDate,
             checkoutDate,
             numberOfGuests,
             totalPrice,
-            bookingStatus
+            bookingStatus,
+            user: {
+                connect: { id: user }
+            },
+            property: {
+                connect: { id: property }
+            }
         }
     })
+
+    return booking
 };
 
 export default createBooking;
