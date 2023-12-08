@@ -1,5 +1,5 @@
-// You can also use CommonJS `require('@sentry/node')` instead of `import`
 import * as Sentry from "@sentry/node";
+import 'dotenv/config';
 import express from "express";
 import errorHandler from "./middleware/errorHandler.js";
 import usersRouter from './routes/users.js'
@@ -39,7 +39,7 @@ app.use(express.json());
 
 // Resource routes
 app.use("/users", usersRouter);
-app.use("/revies", reviesRouter);
+app.use("/reviews", reviesRouter);
 app.use("/properties", propertiesRouter);
 app.use("/hosts", hostsRouter);
 app.use("/bookings", bookingsRouter);
