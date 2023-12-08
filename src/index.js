@@ -8,6 +8,7 @@ import propertiesRouter from './routes/properties.js'
 import hostsRouter from './routes/hosts.js'
 import bookingsRouter from './routes/bookings.js'
 import amenitiesRouter from './routes/amenities.js'
+import loginRouter from './routes/login.js'
 
 const app = express();
 
@@ -45,7 +46,7 @@ app.use("/bookings", bookingsRouter);
 app.use("/amenities", amenitiesRouter)
 
 // Login
-// app.use("/login", loginRouter);
+app.use("/login", loginRouter);
 
 // Trace errors
 // The error handler must be registered before any other error middleware and after all controllers
