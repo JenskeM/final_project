@@ -1,45 +1,58 @@
 // You can also use CommonJS `require('@sentry/node')` instead of `import`
 import * as Sentry from "@sentry/node";
-import { errorHandler } from "@sentry/node/types/handlers";
-import { ProfilingIntegration } from "@sentry/profiling-node";
 import express from "express";
+import errorHandler from "./middleware/errorHandler.js";
+import usersRouter from './routes/users.js'
+import reviesRouter from './routes/reviews.js'
+import propertiesRouter from './routes/properties.js'
+import hostsRouter from './routes/hosts.js'
+import bookingsRouter from './routes/bookings.js'
+import amenitiesRouter from './routes/amenities.js'
 
 const app = express();
 
+// Sentry
 Sentry.init({
-  dsn: 'https://dace5f337af0beba39a257c89bb69945@o4506082162769920.ingest.sentry.io/4506320026533888',
+  dsn: process.env.SENTRY_DSN,
   integrations: [
     // enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
+    new Sentry.Integrations.Http({
+      tracing: true,
+    }),
     // enable Express.js middleware tracing
-    new Sentry.Integrations.Express({ app }),
-    new ProfilingIntegration(),
+    new Sentry.Integrations.Express({
+      app,
+    }),
   ],
   // Performance Monitoring
-  tracesSampleRate: 1.0,
-  // Set sampling rate for profiling - this is relative to tracesSampleRate
-  profilesSampleRate: 1.0,
+  tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!,
 });
 
-// The request handler must be the first middleware on the app
+// Trace incoming requests
 app.use(Sentry.Handlers.requestHandler());
-
-// TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
-// All your controllers should live here
-app.get("/", function rootHandler(req, res) {
-  res.end("Hello world!");
-});
+// Global middleware
+app.use(express.json());
 
+
+// Resource routes
+app.use("/users", usersRouter);
+app.use("/revies", reviesRouter);
+app.use("/properties", propertiesRouter);
+app.use("/hosts", hostsRouter);
+app.use("/bookings", bookingsRouter);
+app.use("/amenities", amenitiesRouter)
+
+// Login
+// app.use("/login", loginRouter);
+
+// Trace errors
 // The error handler must be registered before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
-app.use(errorHandler)
 
-
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+// Error handling
+app.use(errorHandler);
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");

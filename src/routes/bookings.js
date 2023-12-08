@@ -4,7 +4,7 @@ import createBooking from "../services/bookings/createBooking.js";
 import getBookingById from "../services/bookings/getBookingById.js";
 import deleteBookingById from "../services/bookings/deleteBookingById.js";
 import updateBookingById from "../services/bookings/updateBookingById.js";
-import auth from "../middleware/auth.js";
+import auth from "../middleware/advancedAuth.js";
 
 const router = Router();
 

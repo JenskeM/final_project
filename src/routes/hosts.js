@@ -4,7 +4,7 @@ import createHost from "../services/hosts/createHost.js";
 import getHostById from "../services/hosts/getHostById.js";
 import deleteHostById from "../services/hosts/deleteHostById.js";
 import updateHostById from "../services/hosts/updateHostById.js";
-import auth from "../middleware/auth.js";
+import auth from "../middleware/advancedAuth.js";
 
 const router = Router();
 

@@ -4,7 +4,7 @@ import createAmenity from "../services/amenities/createAmenity.js";
 import getAmenityById from "../services/amenities/getAmenityById.js";
 import deleteAmenityById from "../services/amenities/deleteAmenityById.js";
 import updateAmenityById from "../services/amenities/updateAmenityById.js";
-import auth from "../middleware/auth.js";
+import auth from "../middleware/advancedAuth.js";
 
 const router = Router();
 
