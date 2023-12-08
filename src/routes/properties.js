@@ -10,7 +10,8 @@ const router = Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        const properties = await getProperties();
+        const { location, pricePerNight } = req.query
+        const properties = await getProperties(location, pricePerNight);
         res.json(properties);
     } catch (error) {
         next(error);
