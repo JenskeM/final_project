@@ -4,7 +4,7 @@ import createAmenity from "../services/amenities/createAmenity.js";
 import getAmenityById from "../services/amenities/getAmenityById.js";
 import deleteAmenityById from "../services/amenities/deleteAmenityById.js";
 import updateAmenityById from "../services/amenities/updateAmenityById.js";
-import auth from "../middleware/advancedAuth.js";
+import auth from "../middleware/auth.js";
 
 const router = Router();
 
@@ -32,7 +32,7 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-router.post("/", /* auth, */ async (req, res, next) => {
+router.post("/", auth, async (req, res, next) => {
     try {
         const { name } = req.body;
         const newAmenity = await createAmenity(name);
@@ -45,7 +45,7 @@ router.post("/", /* auth, */ async (req, res, next) => {
     }
 });
 
-router.delete("/:id", /* auth, */ async (req, res, next) => {
+router.delete("/:id", auth, async (req, res, next) => {
     try {
         const { id } = req.params;
         const amenity = await deleteAmenityById(id);
@@ -65,7 +65,7 @@ router.delete("/:id", /* auth, */ async (req, res, next) => {
     }
 });
 
-router.put("/:id", /* auth, */ async (req, res, next) => {
+router.put("/:id", auth, async (req, res, next) => {
     try {
         const { id } = req.params;
         const { name } = req.body;
