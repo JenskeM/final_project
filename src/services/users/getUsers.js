@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const getUsers = async (username, email) => {
     // console.log("Ontvangen zoekcriteria:", username, email);
 
-    prisma = new PrismaClient();
+    const prisma = new PrismaClient();
     const users = await prisma.user.findMany({
         where: {
             username: {
