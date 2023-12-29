@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client'
 const createProperty = async (title, description, location, pricePerNight, bedroomCount, bathRoomCount, maxGuestCount, hostId, rating) => {
     const prisma = new PrismaClient()
 
-    return await prisma.user.create({
+    return await prisma.property.create({
         data: {
             title,
             description,
