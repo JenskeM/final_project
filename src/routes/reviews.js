@@ -38,6 +38,9 @@ router.post("/", /* auth, */ async (req, res, next) => {
         const newReview = await createReview(userId, propertyId, rating, comment);
         res.status(201).json(newReview);
     } catch (error) {
+        res.status(400).json({
+            message: `Failed to create Property. Please check your request.`,
+        });
         next(error);
     }
 });

@@ -41,6 +41,9 @@ router.post("/", /* auth, */ async (req, res, next) => {
         const newUser = await createUser(username, password, name, email, phoneNumber, profilePicture);
         res.status(201).json(newUser);
     } catch (error) {
+        res.status(400).json({
+            message: `Failed to create User. Please check your request.`,
+        });
         next(error);
     }
 });

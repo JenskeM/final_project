@@ -39,6 +39,9 @@ router.post("/", /* auth, */ async (req, res, next) => {
         const newProperty = await createProperty(title, description, location, pricePerNight, bedroomCount, bathRoomCount, maxGuestCount, hostId, rating);
         res.status(201).json(newProperty);
     } catch (error) {
+        res.status(400).json({
+            message: `Failed to create Property. Please check your request.`,
+        });
         next(error);
     }
 });

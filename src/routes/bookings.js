@@ -40,6 +40,9 @@ router.post("/", /* auth, */ async (req, res, next) => {
         const newBooking = await createBooking(userId, propertyId, checkinDate, checkoutDate, numberOfGuests, totalPrice, bookingStatus);
         res.status(201).json(newBooking);
     } catch (error) {
+        res.status(400).json({
+            message: `Failed to create Booking. Please check your request.`,
+        });
         next(error);
     }
 });

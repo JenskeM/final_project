@@ -39,6 +39,9 @@ router.post("/", /* auth, */ async (req, res, next) => {
         const newHost = await createHost(username, password, name, email, phoneNumber, profilePicture, aboutMe);
         res.status(201).json(newHost);
     } catch (error) {
+        res.status(400).json({
+            message: `Failed to create Host. Please check your request.`,
+        });
         next(error);
     }
 });

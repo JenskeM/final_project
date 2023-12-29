@@ -38,6 +38,9 @@ router.post("/", /* auth, */ async (req, res, next) => {
         const newAmenity = await createAmenity(name);
         res.status(201).json(newAmenity);
     } catch (error) {
+        res.status(400).json({
+            message: `Failed to create Amenity. Please check your request.`,
+        });
         next(error);
     }
 });

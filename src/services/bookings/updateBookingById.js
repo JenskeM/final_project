@@ -20,7 +20,10 @@ const updateBookingById = async (id, updatedBooking) => {
                 }
                 : undefined
         }
+        // data: updatedBooking
     })
+
+    // return booking.count > 0 ? id : null
 
     return booking
 };
