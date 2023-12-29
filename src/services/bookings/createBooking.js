@@ -10,12 +10,8 @@ const createBooking = async (userId, propertyId, checkinDate, checkoutDate, numb
             numberOfGuests,
             totalPrice,
             bookingStatus,
-            user: {
-                connect: { id: user }
-            },
-            property: {
-                connect: { id: property }
-            }
+            userId,
+            propertyId
         }
     })
 

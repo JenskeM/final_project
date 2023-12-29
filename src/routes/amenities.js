@@ -32,7 +32,7 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-router.post("/", auth, async (req, res, next) => {
+router.post("/", /* auth, */ async (req, res, next) => {
     try {
         const { name } = req.body;
         const newAmenity = await createAmenity(name);
@@ -42,7 +42,7 @@ router.post("/", auth, async (req, res, next) => {
     }
 });
 
-router.delete("/:id", auth, async (req, res, next) => {
+router.delete("/:id", /* auth, */ async (req, res, next) => {
     try {
         const { id } = req.params;
         const amenity = await deleteAmenityById(id);
@@ -62,7 +62,7 @@ router.delete("/:id", auth, async (req, res, next) => {
     }
 });
 
-router.put("/:id", auth, async (req, res, next) => {
+router.put("/:id", /* auth, */ async (req, res, next) => {
     try {
         const { id } = req.params;
         const { name } = req.body;

@@ -13,7 +13,7 @@ const createProperty = async (title, description, location, pricePerNight, bedro
             bathRoomCount,
             maxGuestCount,
             hostId,
-            reviews
+            rating
         }
     })
 };
